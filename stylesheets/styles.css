@@ -1,0 +1,93 @@
+body {
+	background: black;
+}
+#container {
+	width: 640px;
+	height: 1136px;
+	background-image: url("../images/yellowPaper.jpg");
+	margin: 0 auto;
+	font-family: 'Gloria Hallelujah', cursive;
+}
+#header {
+	back ground-color: purple;
+	background-image:url("../images/cardboard.jpg");
+	text-align: center;
+	padding: 20px 0;
+	border-bottom: 2px black solid;
+}
+
+#header h1 {
+	font-size: 50px
+}
+
+#add {
+	background: white;
+	border-bottom: 1px solid black;
+
+}
+
+#add form input {
+	width: 567px;
+	height: 39px;
+	backgr ound-color: red;
+	padding: 0;
+	border: 0;
+	font-size: 20px;
+	font-family: 'Gloria Hallelujah', cursive;
+	text-indent: 20px;
+}
+#add form button {
+	
+	background-color: white;
+	float: right;
+	margin: 0;
+	width: 66px;
+	border: 0;
+
+
+}
+
+.main {
+	background-color: yellow;
+	background-image: url("../images/yellowPaper.jpg");
+	width: 100%;
+	text-align: center;
+	font-family: 'Gloria Hallelujah', cursive;
+}
+
+.main th {
+	padding: 10px 0;
+}
+
+.main tr {
+	border: 1px solid black;
+
+}
+
+.main td {
+	padding: 10px 0;
+	vertical-align: middle;
+	border: 1px solid black;
+}
+.quantity, .value, .status {
+	width: 10%;
+}
+.item {
+	width: 55%;
+
+}
+
+
+
+#total {
+	background-color: or ange;
+	background-image: url("../images/yellowPaper.jpg");
+	height: 43px;
+	font-size: 30px;
+	text-align: right;
+	font-family: 'Gloria Hallelujah', cursive;
+}
+
+.checked {
+	text-decoration: line-through;
+}
