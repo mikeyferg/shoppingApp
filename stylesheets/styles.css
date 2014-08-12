@@ -91,3 +91,37 @@ body {
 .checked {
 	text-decoration: line-through;
 }
+
+.extras {
+	padding-left: 100px;
+}
+
+.eraser {
+	float: right;
+	padding-top: 100px;
+}
+.sticky {
+
+	width: 300px;
+	height: 290px;
+	float: left;
+	background-image: url('../images/sticky.png');
+	background-size: 300px 290px;
+    background-repeat: no-repeat;
+}
+
+.instructions {
+	padding-top: 40px;
+	padding-left: 47px;
+	width: 220px;
+}
+
+.instructions h2 {
+	font-size: 30px;
+	padding-bottom: 10px;
+}
+
+.instructions li {
+	list-style-type:square;
+	padding-bottom: 8px;
+}
