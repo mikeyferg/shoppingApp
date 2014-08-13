@@ -69,7 +69,7 @@ body {
 	vertical-align: middle;
 	border: 1px solid black;
 }
-.quantity, .value, .status {
+.quantity, .value, .status, .total {
 	width: 10%;
 }
 .item {
