@@ -14,40 +14,44 @@
 			</div>
 			<div id="add">
 				<form>
-					<input type="text" placeholder="What I need..."></input>
-					<button><img src="http://easywebsitepro.com/help/media/doc5/all/IconPlus32.png"/></button>
+					<input class="itemUser" type="text" placeholder="What I need..."></input>
+					<button class="addItem"><img src="http://easywebsitepro.com/help/media/doc5/all/IconPlus32.png"/></button>
 				</form>
 			</div>
 			<table class="main">
-				<tr class="sections">
-					<th class="status">Bought</th>
-					<th class="item">Item</th>
-					<th class="quantity">Quantity</th> 
-					<th class="value">Price</th>
-					<th class="value">Total</th>
-				</tr>
-				<tr>
-					<td></td>
-					<td class="item">pineapples</td>
-					<td class="quantity">1</td>
-					<td class="value">$1.00</td>
-					<td class="value">$1.00</td>
-				</tr>
-				<tr class="checked">
-					<td><img src="images/checkSmall.jpg" /></td>
-					<td class="item">pineapples</td>
-					<td class="quantity">2</td>
-					<td class="value">$3.00</td>
-					<td class="value">$6.00</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td class="item">pineapples</td>
-					<td class="quantity">4</td>
-					<td class="value">$1.00</td>
-					<td class="value">$4.00</td>
-				</tr>
 
+				<thead>
+					<tr class="sections">
+						<th class="status">Bought</th>
+						<th class="item">Item</th>
+						<th class="quantity">Quantity</th> 
+						<th class="value">Price</th>
+						<th class="value">Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td></td>
+						<td class="item">pineapples</td>
+						<td class="quantity">1</td>
+						<td class="value">$1.00</td>
+						<td class="value">$1.00</td>
+					</tr>
+					<tr class="checked">
+						<td><img src="images/checkSmall.jpg" /></td>
+						<td class="item">pineapples</td>
+						<td class="quantity">2</td>
+						<td class="value">$3.00</td>
+						<td class="value">$6.00</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td class="item">pineapples</td>
+						<td class="quantity">4</td>
+						<td class="value">$1.00</td>
+						<td class="value">$4.00</td>
+					</tr>
+				</tbody>
 			</table>
 			<div id="total">
 				<h3>Total $11.00</h3>
@@ -68,7 +72,6 @@
 					<img src="images/eraser2.png"/>
 				</div>
 			</div>
-
 		</div>
 	   <script src="jquery.js"></script>
 	   <script src="app.js"></script>
