@@ -125,3 +125,17 @@ body {
 	list-style-type:square;
 	padding-bottom: 8px;
 }
+#total {
+	clear: both;
+}
+#total h3 {
+	position: relative;
+	lef t: -px;
+	display: inline-block;
+
+}
+
+#total p {
+	display: inline-block;
+	margin-right: 10px;
+}
