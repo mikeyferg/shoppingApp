@@ -45,6 +45,11 @@ $(document).ready(function() {
 		$('input').val('');
 	})
 
+	/* clear placeholder text on click */
+	$('input').on('click', function() {
+		$(this).attr('placeholder', '');
+	})
+
 	/* store usr input values for quantity, price and total inputs */
 	$('input').on('keyup', function() {
 		var value = $(this).val();
@@ -56,23 +61,33 @@ $(document).ready(function() {
 			var price = +$(this).closest('tr').find('.value').text();
 			var quantity = +$(this).closest('tr').find('.quantity').text();
 
-			$(this).closest('td').siblings('.total').text(price * quantity);
-			
+			console.log(price * quantity)
+			if (price * quantity){
+				$(this).closest('td').siblings('.total').text(price * quantity);
+				}
 		}
 		/* calculate total costs */
     	var sum = 0;
     
     	for (var i=0; i < $('.total').length; i++ ){
-    		/*sum = sum + parseInt($($('.total')[i]).text(), 10); */
-    		/*sum = sum + 1; */
     		if (parseInt(parseInt($($('.total')[i]).text()))) {
     			sum = sum + parseInt($($('.total')[i]).text());
     		}
     	}
-    	
     	$('#total p').text(sum);
 
+    })
     	
+
+	/* click event to cross item off list */
+    	$('.status').on('click', function(){
+    		$(this).addClass('checked');
+    		$(this).closest('tr').find('td').addClass('checked2');
+
+    		/* subtract row sum from #total is row checked off */
+
+
+
 	})
 
 
