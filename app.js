@@ -67,26 +67,60 @@ $(document).ready(function() {
 				}
 		}
 		/* calculate total costs */
-    	var sum = 0;
+    	    var sum = 0;
     
-    	for (var i=0; i < $('.total').length; i++ ){
-    		if (parseInt(parseInt($($('.total')[i]).text()))) {
-    			sum = sum + parseInt($($('.total')[i]).text());
-    		}
-    	}
-    	$('#total p').text(sum);
+	    	for (var i=0; i < $('.total').length; i++ ){
+	    		if (parseInt(parseInt($($('.total')[i]).text()))) {
+	    			sum = sum + parseInt($($('.total')[i]).text());
+	    		}
+	    	}
+	    	/* subtract checked items */
+    		var crossedOff = 0
 
+			for (var i=0; i < $('.total.checked2').length; i++ ){
+    			if (parseInt(parseInt($($('.total.checked2')[i]).text()))) {
+    				crossedOff = crossedOff + parseInt($($('.total.checked2')[i]).text());
+    			}
+    		}
+
+    		$('#total p').text(sum-crossedOff);
     })
-    	
 
 	/* click event to cross item off list */
     	$('.status').on('click', function(){
-    		$(this).addClass('checked');
-    		$(this).closest('tr').find('td').addClass('checked2');
+    		
+    		/* check to see if row is checked off or not */
+    		if ($(this).hasClass('checked') == false) {
 
-    		/* subtract row sum from #total is row checked off */
+	    		$(this).addClass('checked');
+	    		$(this).closest('tr').find('td').addClass('checked2');
+	    	}
+	    	else {
+	    		$(this).removeClass('checked');
+	    		$(this).closest('tr').find('td').removeClass('checked2');
+	    	}
 
 
+    		/* calculate total costs */
+    		var sum = 0;
+    
+	    	for (var i=0; i < $('.total').length; i++ ){
+	    		if (parseInt(parseInt($($('.total')[i]).text()))) {
+	    			sum = sum + parseInt($($('.total')[i]).text());
+	    		}
+	    	}
+	    	/* subtract checked items */
+    		var crossedOff = 0
+
+			for (var i=0; i < $('.total.checked2').length; i++ ){
+    			if (parseInt(parseInt($($('.total.checked2')[i]).text()))) {
+    				crossedOff = crossedOff + parseInt($($('.total.checked2')[i]).text());
+    			}
+    		}
+
+    		$('#total p').text(sum-crossedOff);
+
+   
 
 	})
 
