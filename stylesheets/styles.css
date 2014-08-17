@@ -166,3 +166,7 @@ tbody input {
 	display: inline-block;
 	margin-right: 10px;
 }
+
+.test {
+	-webkit-appearance: textarea;
+}
