@@ -1,6 +1,4 @@
 
-
-
 $(document).ready(function() {
 
 
@@ -9,7 +7,7 @@ $(document).ready(function() {
 		
 		/* prevent clearing on new element added */
 		e.preventDefault();
-		
+	
 		/* grab user input */
 		var newItem = $(this).closest("#add").find(".itemUser").val();
 		
@@ -39,11 +37,9 @@ $(document).ready(function() {
 			contenteditable: "true"
 		});
 
-
 		var total = $('<td></td>', {
 			class: "total"
 		}); 
-
 
 		/* append to DOM! */
 		$('tbody').append(row);
@@ -52,7 +48,6 @@ $(document).ready(function() {
 		$(row).append(quantity);
 		$(row).append(value);
 		$(row).append(total);
-
 
 	
 		/* enter key triggers blur event */
@@ -79,32 +74,32 @@ $(document).ready(function() {
 		});
 
 	
-	/* 2 decimals on blur for value */
-	$('.value').on('blur', function() {
-		if ($(this).text() == '') {
-			$(this).closest('tr').find('.total').text('');
-		}
+		/* 2 decimals on blur for value */
+		$('.value').on('blur', function() {
+			if ($(this).text() == '') {
+				$(this).closest('tr').find('.total').text('');
+			}
 
-		else {
-	   		var value = parseFloat($(this).text());
-	    	$(this).text( value.toFixed(2) );
-    	}
-    	
-  	});
+			else {
+		   		var value = parseFloat($(this).text());
+		    	$(this).text( value.toFixed(2) );
+	    	}
+	    	
+	  	});
 
-	/* integer on blur for quantity */
-	$('.quantity').on('blur', function() {
-		if ($(this).text() == '') {
-			$(this).closest('tr').find('.total').text('');
-		} 
-		else {
-		var value = parseFloat($(this).text());
-		$(this).text( value.toFixed(0) );
-		}
-	});
+		/* no decimals on blur for quantity */
+		$('.quantity').on('blur', function() {
+			if ($(this).text() == '') {
+				$(this).closest('tr').find('.total').text('');
+			} 
+			else {
+			var value = parseFloat($(this).text());
+			$(this).text( value.toFixed(0) );
+			}
+		});
 
 
-		/* add click event to newly created inputs */
+		/* add blur event to newly created inputs */
 		$('td').on('blur', function() {
 			
 			/* calcuate total cost for a row */
@@ -122,8 +117,8 @@ $(document).ready(function() {
 			}
 
 			/* calculate total costs */
-    		var sum = 0;
-    
+			var sum = 0;
+
 	    	for (var i=0; i < $('.total').length; i++ ){
 	    		if (parseFloat(parseFloat($($('.total')[i]).text()))) {
 	    			sum = sum + parseFloat($($('.total')[i]).text());
@@ -131,27 +126,27 @@ $(document).ready(function() {
 	    	}
 
 	    	/* subtract checked items */
-    		var crossedOff = 0
+			var crossedOff = 0
 
 			for (var i=0; i < $('.total.checked2').length; i++ ){
-    			if (parseFloat(parseFloat($($('.total.checked2')[i]).text()))) {
-    				crossedOff = crossedOff + parseFloat($($('.total.checked2')[i]).text());
-    			}
-    		}
-    		var sumFloat = parseFloat(sum-crossedOff);
-    		
-    		$('#total p').text(sumFloat.toFixed(2));
-    	})	
-	
+				if (parseFloat(parseFloat($($('.total.checked2')[i]).text()))) {
+					crossedOff = crossedOff + parseFloat($($('.total.checked2')[i]).text());
+				}
+			}
+			var sumFloat = parseFloat(sum-crossedOff);
+			
+			$('#total p').text(sumFloat.toFixed(2));
+		})	
 
-	 	/* clear user input */
+
+	 	/* clear user input on add item bar*/
 		$('input').val('');
 	})
 
 
-	/*end of newly created 
+	/*end of newly created ---
 
-							elements section */
+							      ------elements section */
 
 
 
@@ -188,7 +183,7 @@ $(document).ready(function() {
 
   	});
 
-	/* integer on blur for quantity */
+	/* 0 decimals on blur for quantity */
 	$('.quantity').on('blur', function() {
 		if ($(this).text() == '') {
 			$(this).closest('tr').find('.total').text('');
@@ -201,8 +196,7 @@ $(document).ready(function() {
 
 
 
-
-	/* editing prices and quantites */
+	/* blur event for editing prices and quantites */
 	$('td').on('blur', function() {
 		
 		/* calcuate total cost for a row */
@@ -210,9 +204,7 @@ $(document).ready(function() {
 
 			var price = +$(this).closest('tr').find('.value').text();
 			
-			
 			var quantity = +$(this).closest('tr').find('.quantity').text();
-			
 			
 			$(this).closest('tr').find('.total').text((price * quantity).toFixed(2));	
 		}
@@ -240,13 +232,7 @@ $(document).ready(function() {
 	})   
 
 
-
-
-
-
-
-
-	/* click event to cross item off list */
+	/* click event to cross item off list or add back on */
 	$('tbody').on('click', '.status', function(){
 
 		/* check to see if row is checked off or not */
@@ -278,12 +264,12 @@ $(document).ready(function() {
 			}
 		}
 
-		$('#total p').text(sum-crossedOff);
+		$('#total p').text((sum-crossedOff).toFixed(2));
 
 	})
 
 
-    /* delete a for with a user double click */
+    /* delete a row with a user double click */
     $('tbody').on('dblclick', '.status', function(){
 
     	$(this).closest('tr').remove();
