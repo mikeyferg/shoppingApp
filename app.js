@@ -79,16 +79,29 @@ $(document).ready(function() {
 		});
 
 	
-		/* 2 decimal round on blur for price for new items */
-		$('.value').on('blur', function() {
+	/* 2 decimals on blur for value */
+	$('.value').on('blur', function() {
+		if ($(this).text() == '') {
+			$(this).closest('tr').find('.total').text('');
+		}
+
+		else {
 	   		var value = parseFloat($(this).text());
 	    	$(this).text( value.toFixed(2) );
-	  	});
-		/* integer on blur for quantity for new items */
-		$('.quantity').on('blur', function() {
-	   		var value = parseFloat($(this).text());
-	    	$(this).text( value.toFixed(0) );
-	  	});
+    	}
+    	
+  	});
+
+	/* integer on blur for quantity */
+	$('.quantity').on('blur', function() {
+		if ($(this).text() == '') {
+			$(this).closest('tr').find('.total').text('');
+		} 
+		else {
+		var value = parseFloat($(this).text());
+		$(this).text( value.toFixed(0) );
+		}
+	});
 
 
 		/* add click event to newly created inputs */
@@ -104,7 +117,7 @@ $(document).ready(function() {
 			
 
 				if (price * quantity){
-					$(this).closest('td').siblings('.total').text(price * quantity);
+					$(this).closest('tr').find('.total').text((price * quantity).toFixed(2));
 					}
 			}
 
@@ -147,6 +160,8 @@ $(document).ready(function() {
 
 	/* only allow floats for values and quantities */
 	$('.quantity, .value').on('keypress', function(event){
+
+
 	    if(event.which < 46
 	    || event.which > 59) {
 	        event.preventDefault();
@@ -161,16 +176,29 @@ $(document).ready(function() {
 
 
 	/* 2 decimals on blur for value */
-	$('.value, .quantity').on('blur', function() {
-   		var value = parseFloat($(this).text());
-    	$(this).text( value.toFixed(2) );
+	$('.value').on('blur', function() {
+		if ($(this).text() == '') {
+			$(this).closest('tr').find('.total').text('');
+		}
+
+		else {
+	   		var value = parseFloat($(this).text());
+	    	$(this).text( value.toFixed(2) );
+    	}
+
   	});
 
 	/* integer on blur for quantity */
 	$('.quantity').on('blur', function() {
+		if ($(this).text() == '') {
+			$(this).closest('tr').find('.total').text('');
+		} 
+		else {
 		var value = parseFloat($(this).text());
 		$(this).text( value.toFixed(0) );
+		}
 	});
+
 
 
 
@@ -186,7 +214,7 @@ $(document).ready(function() {
 			var quantity = +$(this).closest('tr').find('.quantity').text();
 			
 			
-			$(this).closest('tr').find('.total').text(price * quantity);	
+			$(this).closest('tr').find('.total').text((price * quantity).toFixed(2));	
 		}
 
 		/* calculate total costs */
@@ -207,9 +235,15 @@ $(document).ready(function() {
 			}
 		}
 
-		$('#total p').text(sum-crossedOff);
+		$('#total p').text((sum-crossedOff).toFixed(2));
 
-	})
+	})   
+
+
+
+
+
+
 
 
 	/* click event to cross item off list */
