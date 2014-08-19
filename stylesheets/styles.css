@@ -55,34 +55,32 @@ body {
 	font-family: 'Gloria Hallelujah', cursive;
 }
 
+thead th, thead tr, thead {
+	text-align: center;
+	fo nt-weight: bold;
+}
+
+thead {
+	height: 30px;
+}
+
 .main th {
 	padding: 10px 0;
 }
 
-.main tr {
-	border: 1px solid black;
+tbody tr {
+	b order: 1px solid black;
 	height: 60px;
 
 }
 
-.main td {
+tbody td {
 	
 	vertical-align: middle;
 	border: 1px solid black;
 }
 
-tbody input {
-	width: 100%;
-	height: 37px;
-	display: block;
-	margin: 0px;
-    padding: 0px;
-    border: 0px;
-    background: transparent;
-    font-family: 'Gloria Hallelujah', cursive;
-    font-size: 100%;
-    text-align: center;
-}
+
 
 .quantity, .value, .status, .total {
 	width: 10%;
@@ -92,14 +90,7 @@ tbody input {
 
 }
 
-.sections th:first-child{
-	padding-left: 25px;
-	
-}
 
-.sections th:nth-child(4) {
-	padding-right: 25px;
-}
 
 #total {
 	background-color: or ange;
@@ -112,11 +103,12 @@ tbody input {
 
 .checked {
 	
-	background: no-repeat center url('../images/check2.png');
+	background: no-repeat center url('../images/check3.png');
 }
 
 .checked2 {
 	text-decoration: line-through;
+	color: red;
 }
 
 .extras {
@@ -167,6 +159,6 @@ tbody input {
 	margin-right: 10px;
 }
 
-.test {
-	-webkit-appearance: textarea;
+.getStarted {
+	height: 60px;
 }

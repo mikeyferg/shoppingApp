@@ -1,10 +1,14 @@
+
+
+
 $(document).ready(function() {
-	
+
+
+	/*add a new item */
 	$('#add').on('click submit', 'button', function(e) {
 		
 		/* prevent clearing on new element added */
 		e.preventDefault();
-		e.stopPropagation()
 		
 		/* grab user input */
 		var newItem = $(this).closest("#add").find(".itemUser").val();
@@ -15,40 +19,30 @@ $(document).ready(function() {
 		var item = $(row).addClass(newItem);
 
 		var status = $('<td></td>', {
-			class: "status"
+			class: "status",
 		});
 
 		var itemInput = $('<td>' + newItem + '</td>')
 
-		var item = $(itemInput).addClass('item');
+			var item = $(itemInput).addClass('item');
+
+			$(item).attr('contenteditable', 'true');
 
 		var quantity = $('<td></td>', {
-			class: "quantity"
+			class: "quantity",
+			contenteditable: "true"
 		});
 
-			var inputQuantity = $('<input></input>');
-
-			$(inputQuantity).attr('type', 'text');
-			$(inputQuantity).attr('placeholder', '#');
-
-			$(quantity).append(inputQuantity)
-
-
-
+	
 		var value = $('<td></td>', {
-			class: "value"
+			class: "value",
+			contenteditable: "true"
 		});
 
-		var inputValue = $('<input></input>');
-
-			$(inputValue).attr('type', 'text');
-			$(inputValue).attr('placeholder', '$');
-
-			$(value).append(inputValue);
 
 		var total = $('<td></td>', {
 			class: "total"
-		});
+		}); 
 
 
 		/* append to DOM! */
@@ -60,78 +54,129 @@ $(document).ready(function() {
 		$(row).append(total);
 
 
-		/* clear user input */
-		$('input').val('');
+	
+		/* enter key triggers blur event */
+		$("td").on('keydown', function(e) {  
+		    if(e.keyCode == 13)
+		    {
+		        e.preventDefault();
+		        $(this).blur();
+		    }
+		});
+
+
+		/* only allow floats for values and quantities */
+		$('.quantity, .value').on('keypress', function(event){
+		    if(event.which < 46
+		    || event.which > 59) {
+		        event.preventDefault();
+		    } // prevent if not number/dot
+
+		    if(event.which == 46
+		    && $(this).val().indexOf('.') != -1) {
+		        event.preventDefault();
+		    } // prevent if already dot
+		});
+
+	
+		/* 2 decimal round on blur for price for new items */
+		$('.value').on('blur', function() {
+	   		var value = parseFloat($(this).text());
+	    	$(this).text( value.toFixed(2) );
+	  	});
+		/* integer on blur for quantity for new items */
+		$('.quantity').on('blur', function() {
+	   		var value = parseFloat($(this).text());
+	    	$(this).text( value.toFixed(0) );
+	  	});
+
 
 		/* add click event to newly created inputs */
-		$('td').on('keyup', 'input', function() {
-			var value = $(this).val();
-			$(this).text(value);
+		$('td').on('blur', function() {
 			
 			/* calcuate total cost for a row */
 			if ($(this).closest('tr').find('.quantity').text().length > 0 && $(this).closest('tr').find('.value').text().length > 0) {
 
 				var price = +$(this).closest('tr').find('.value').text();
-				console.log(price);
+				
 				
 				var quantity = +$(this).closest('tr').find('.quantity').text();
-				console.log(quantity)
+			
 
 				if (price * quantity){
 					$(this).closest('td').siblings('.total').text(price * quantity);
 					}
 			}
-			    		/* calculate total costs */
+
+			/* calculate total costs */
     		var sum = 0;
     
 	    	for (var i=0; i < $('.total').length; i++ ){
-	    		if (parseInt(parseInt($($('.total')[i]).text()))) {
-	    			sum = sum + parseInt($($('.total')[i]).text());
+	    		if (parseFloat(parseFloat($($('.total')[i]).text()))) {
+	    			sum = sum + parseFloat($($('.total')[i]).text());
 	    		}
 	    	}
+
 	    	/* subtract checked items */
     		var crossedOff = 0
 
 			for (var i=0; i < $('.total.checked2').length; i++ ){
-    			if (parseInt(parseInt($($('.total.checked2')[i]).text()))) {
-    				crossedOff = crossedOff + parseInt($($('.total.checked2')[i]).text());
+    			if (parseFloat(parseFloat($($('.total.checked2')[i]).text()))) {
+    				crossedOff = crossedOff + parseFloat($($('.total.checked2')[i]).text());
     			}
     		}
-
-    		$('#total p').text(sum-crossedOff);
-
-
-
-
-
-
-
-    		/*repopulate user input values*/
-    		$('input.test').val($('.test').attr('quantity'));
-
-
-
-
+    		var sumFloat = parseFloat(sum-crossedOff);
+    		
+    		$('#total p').text(sumFloat.toFixed(2));
     	})	
+	
+
+	 	/* clear user input */
+		$('input').val('');
+	})
+
+
+	/*end of newly created 
+
+							elements section */
+
+
+
+
+
+
+	/* only allow floats for values and quantities */
+	$('.quantity, .value').on('keypress', function(event){
+	    if(event.which < 46
+	    || event.which > 59) {
+	        event.preventDefault();
+	    } // prevent if not number/dot
+
+	    if(event.which == 46
+	    && $(this).val().indexOf('.') != -1) {
+	        event.preventDefault();
+	    } // prevent if already dot
+	});
+
+
+
+	/* 2 decimals on blur for value */
+	$('.value, .quantity').on('blur', function() {
+   		var value = parseFloat($(this).text());
+    	$(this).text( value.toFixed(2) );
+  	});
+
+	/* integer on blur for quantity */
+	$('.quantity').on('blur', function() {
+		var value = parseFloat($(this).text());
+		$(this).text( value.toFixed(0) );
+	});
+
+
+
+	/* editing prices and quantites */
+	$('td').on('blur', function() {
 		
-
-
-	})
-
-	/* clear placeholder text on click */
-	$('input').on('click', function() {
-		$(this).attr('placeholder', '');
-	})
-
-	/* store user input values for quantity, price and total inputs */
-	$('td').on('keyup', 'input', function(e) {
-		var value = +$(this).val();
-		$(this).text(value);
-		e.stopPropagation();
-
-		/*$(this).closest('td').attr('quantity', value)
-		console.log($('.test').attr('quantity')); */
-
 		/* calcuate total cost for a row */
 		if ($(this).closest('tr').find('.quantity').text().length > 0 && $(this).closest('tr').find('.value').text().length > 0) {
 
@@ -140,84 +185,112 @@ $(document).ready(function() {
 			
 			var quantity = +$(this).closest('tr').find('.quantity').text();
 			
-
-			if (price * quantity){
-				$(this).closest('td').siblings('.total').text(price * quantity);
-				}
-
-
+			
+			$(this).closest('tr').find('.total').text(price * quantity);	
 		}
-		/*console.log($(this).next('.item').text()); */
-
 
 		/* calculate total costs */
-    	    var sum = 0;
-    
-	    	for (var i=0; i < $('.total').length; i++ ){
-	    		if (parseInt(parseInt($($('.total')[i]).text()))) {
-	    			sum = sum + parseInt($($('.total')[i]).text());
-	    		}
-	    	}
-	    	/* subtract checked items */
-    		var crossedOff = 0
+	    var sum = 0;
 
-			for (var i=0; i < $('.total.checked2').length; i++ ){
-    			if (parseInt(parseInt($($('.total.checked2')[i]).text()))) {
-    				crossedOff = crossedOff + parseInt($($('.total.checked2')[i]).text());
-    			}
+    	for (var i=0; i < $('.total').length; i++ ){
+    		if (parseInt(parseInt($($('.total')[i]).text()))) {
+    			sum = sum + parseInt($($('.total')[i]).text());
     		}
+    	}
 
-    		$('#total p').text(sum-crossedOff);
-    })
+    	/* subtract checked items */
+		var crossedOff = 0
 
-	/* click event to cross item off list */
-    	$('tbody').on('click', '.status', function(){
-    		
-    		/* check to see if row is checked off or not */
-    		if ($(this).hasClass('checked') == false) {
+		for (var i=0; i < $('.total.checked2').length; i++ ){
+			if (parseInt(parseInt($($('.total.checked2')[i]).text()))) {
+				crossedOff = crossedOff + parseInt($($('.total.checked2')[i]).text());
+			}
+		}
 
-	    		$(this).addClass('checked');
-	    		$(this).closest('tr').find('td').addClass('checked2');
-	    	}
-	    	else {
-	    		$(this).removeClass('checked');
-	    		$(this).closest('tr').find('td').removeClass('checked2');
-	    	}
-
-    		/* calculate total costs */
-    		var sum = 0;
-    
-	    	for (var i=0; i < $('.total').length; i++ ){
-	    		if (parseInt(parseInt($($('.total')[i]).text()))) {
-	    			sum = sum + parseInt($($('.total')[i]).text());
-	    		}
-	    	}
-	    	/* subtract checked items */
-    		var crossedOff = 0
-
-			for (var i=0; i < $('.total.checked2').length; i++ ){
-    			if (parseInt(parseInt($($('.total.checked2')[i]).text()))) {
-    				crossedOff = crossedOff + parseInt($($('.total.checked2')[i]).text());
-    			}
-    		}
-
-    		$('#total p').text(sum-crossedOff);
-
-   
+		$('#total p').text(sum-crossedOff);
 
 	})
 
+
+	/* click event to cross item off list */
+	$('tbody').on('click', '.status', function(){
+
+		/* check to see if row is checked off or not */
+		if ($(this).hasClass('checked') == false) {
+
+    		$(this).addClass('checked');
+    		$(this).closest('tr').find('td').addClass('checked2');
+    	}
+    	else {
+    		$(this).removeClass('checked');
+    		$(this).closest('tr').find('td').removeClass('checked2');
+    	}
+
+		/* calculate total costs */
+		var sum = 0;
+
+    	for (var i=0; i < $('.total').length; i++ ){
+    		if (parseFloat(parseFloat($($('.total')[i]).text()))) {
+    			sum = sum + parseFloat($($('.total')[i]).text());
+    		}
+    	}
+
+    	/* subtract checked items */
+		var crossedOff = 0
+
+		for (var i=0; i < $('.total.checked2').length; i++ ){
+			if (parseFloat(parseFloat($($('.total.checked2')[i]).text()))) {
+				crossedOff = crossedOff + parseFloat($($('.total.checked2')[i]).text());
+			}
+		}
+
+		$('#total p').text(sum-crossedOff);
+
+	})
+
+
     /* delete a for with a user double click */
     $('tbody').on('dblclick', '.status', function(){
+
     	$(this).closest('tr').remove();
+
+    	/* calculate total costs */
+		var sum = 0;
+
+    	for (var i=0; i < $('.total').length; i++ ){
+    		if (parseFloat(parseFloat($($('.total')[i]).text()))) {
+    			sum = sum + parseFloat($($('.total')[i]).text());
+    		}
+    	}
+
+    	/* subtract checked items */
+		var crossedOff = 0
+
+		for (var i=0; i < $('.total.checked2').length; i++ ){
+			if (parseFloat(parseFloat($($('.total.checked2')[i]).text()))) {
+				crossedOff = crossedOff + parseFloat($($('.total.checked2')[i]).text());
+			}
+		}
+
+		$('#total p').text(sum-crossedOff);
+
     })
 
-    $('.eraser').on('click', function(){
+    /* clear whole list */
+    $('.eraser').on('click', function() {
     	$('tbody').find('tr').remove();
-
+    	$('#total').find('p').text('');
     })
 
 
+    /* exit an element with enter button (blur) */
+	$("td").on('keydown', function(e) {  
+	    if(e.keyCode == 13)
+	    {
+	        e.preventDefault();
+	        $(this).blur();
+	    }
+	});
 
 
 
