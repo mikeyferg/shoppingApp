@@ -1,6 +1,15 @@
 
 $(document).ready(function() {
 
+		/* enter key triggers blur event */
+		$("td").on('keydown', function(e) {  
+	    	if(e.keyCode == 13)
+	    	{
+	       	e.preventDefault();
+	       	$(this).blur();
+		    }
+		});
+
 
 	/*add a new item */
 	$('#add').on('click submit', 'button', function(e) {
@@ -50,15 +59,15 @@ $(document).ready(function() {
 		$(row).append(total);
 
 	
-		/* enter key triggers blur event */
+			/* enter key triggers blur event */
 		$("td").on('keydown', function(e) {  
-		    if(e.keyCode == 13)
-		    {
-		        e.preventDefault();
-		        $(this).blur();
+	    	if(e.keyCode == 13)
+	    	{
+	       	e.preventDefault();
+	       	$(this).blur();
 		    }
 		});
-
+		
 
 		/* only allow floats for values and quantities */
 		$('.quantity, .value').on('keypress', function(event){
@@ -147,8 +156,6 @@ $(document).ready(function() {
 	/*end of newly created ---
 
 							      ------elements section */
-
-
 
 
 
